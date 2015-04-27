@@ -22,7 +22,7 @@ This element is used to manipulate cookies.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../expandjs/expandjs.html">
 
-<polymer-element name="xp-cookie" constructor="XPCookieElement" attributes="domain expires name path secure value">
+<polymer-element name="xp-cookie" constructor="XPCookieElement" attributes="domain expires loaded name path secure value">
 
     <template>
         <style>
@@ -39,6 +39,16 @@ This element is used to manipulate cookies.
              * Fired when the value changes.
              *
              * @event xp-cookie-change
+             * @param {Element} firer
+             * @param {string} name
+             * @param {string} value
+             * @bubbles
+             */
+
+            /**
+             * Fired when the cookie is loaded.
+             *
+             * @event xp-cookie-load
              * @param {Element} firer
              * @param {string} name
              * @param {string} value
@@ -84,11 +94,17 @@ This element is used to manipulate cookies.
              */
             refresh: function () {
                 var self = this;
-                self.value = (self.name && Cookies.get(self.name)) || '';
+                self.loaded = true;
+                self.value  = (self.name && Cookies.get(self.name)) || '';
                 return self;
             },
 
             /*********************************************************************/
+
+            // OBSERVE
+            observe: {
+                'name': 'refresh'
+            },
 
             // PUBLISH
             publish: {
@@ -109,6 +125,16 @@ This element is used to manipulate cookies.
                  * @type number | string
                  */
                 expires: {reflect: true, value: null},
+
+                /**
+                 * If set to true, the cookie is loaded.
+                 *
+                 * @attribute loaded
+                 * @type boolean
+                 * @default false
+                 * @readonly
+                 */
+                loaded: {reflect: true, value: false},
 
                 /**
                  * The cookie's name.
@@ -161,8 +187,8 @@ This element is used to manipulate cookies.
             /*********************************************************************/
 
             // OBSERVER
-            nameChanged: function (pre, post) {
-                this.value = (post && Cookies.get(post)) || '';
+            loadedChanged: function () {
+                this.fire('xp-cookie-load', {firer: this, name: this.name, value: this.value});
             },
 
             // OBSERVER
