@@ -79,7 +79,7 @@ This element is used to manipulate cookies.
             setValue: function (value) {
                 var self = this;
                 if (self.name) { Cookies.set(self.name, value, {domain: self.domain, expires: XP.toUseful(self.expires), path: self.path, secure: self.secure}); }
-                if (self.name) { XP.requestAnimationFrame(function () { XP.invoke(self.instances, 'refresh'); }); }
+                if (self.name) { XP.delay(function () { XP.invoke(self.instances, 'refresh'); }); }
                 return self;
             },
 
