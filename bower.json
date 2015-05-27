@@ -1,7 +1,7 @@
 {
   "name": "xp-cookie",
   "license": "BSD-3-Clause",
-  "version": "0.8.10",
+  "version": "0.8.11",
   "description": "Custom element able to manipulate the browser's cookies",
   "homepage": "http://expandjs.com/elements/xp-cookie",
   "authors": [
