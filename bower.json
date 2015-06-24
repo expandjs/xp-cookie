@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "expandjs": "ExpandJS/expandjs#0.9.1",
-    "polymer": "Polymer/polymer#^1.0.4",
-    "cookies": "ScottHamper/cookies#~1.2"
+    "polymer": "Polymer/polymer#^1.0.0",
+    "cookies": "ScottHamper/cookies#^1.0.0"
   }
 }
